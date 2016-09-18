@@ -9,7 +9,8 @@
 
 //引入导出的app实例,该实例存在于app.js中
 var app = require('../app');
-//引入debug模块，打印调试日志
+//引入debug模块，打印调试日志.
+//打印出格式：Sun, 18 Sep 2016 15:54:56 GMT blog:server ****
 var debug = require('debug')('blog:server');
 // 引入http模块
 var http = require('http');
@@ -99,6 +100,7 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
+  debug("d: " + addr);
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;

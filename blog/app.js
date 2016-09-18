@@ -20,7 +20,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 //加载日志中间件
 app.use(logger('dev'));
 //加载解析json的中间件
