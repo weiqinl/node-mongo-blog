@@ -1,15 +1,23 @@
 #!/usr/bin/env node
-
+/**
+ * 表明是node可执行文件，只能放在第一句
+ */
 /**
  * Module dependencies.
+ * 模块依赖加载
  */
 
+//引入导出的app实例,该实例存在于app.js中
 var app = require('../app');
+//引入debug模块，打印调试日志
 var debug = require('debug')('blog:server');
+// 引入http模块
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
+ * 定义启动端口号
+ * 调用端口标准化函数。从环境中获取端口号并存储在express中，或者使用3000端口号
  */
 
 var port = normalizePort(process.env.PORT || '3000');
@@ -17,25 +25,31 @@ app.set('port', port);
 
 /**
  * Create HTTP server.
+ * 创建HTTP服务器实例
  */
 
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
+ * 启动网络服务监听端口
  */
 
 server.listen(port);
+//如果有异常，触发   HTTP异常事件处理函数
 server.on('error', onError);
+//触发事件监听函数
 server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
+ * 端口标准化函数（ 返回数字，字符串或者false);
  */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
+  //如果是一个非数则为真
   if (isNaN(port)) {
     // named pipe
     return val;
@@ -51,6 +65,7 @@ function normalizePort(val) {
 
 /**
  * Event listener for HTTP server "error" event.
+ * HTTP异常事件处理函数
  */
 
 function onError(error) {
@@ -79,6 +94,7 @@ function onError(error) {
 
 /**
  * Event listener for HTTP server "listening" event.
+ * 事件监听函数
  */
 
 function onListening() {
