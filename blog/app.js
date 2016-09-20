@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var settings = require('./settings');
 
 //生成一个express实例app
 var app = express();
