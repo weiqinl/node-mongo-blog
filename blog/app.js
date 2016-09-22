@@ -79,8 +79,10 @@ app.use(function(err, req, res, next) {
 });
 
 app.use(session({
-  secret: setting.cookieSecret,
-  key: setting.db,//cookie name
+  resave:false,//resave ——重新保存：强制会话保存即使是未修改的，默认为true
+  saveUninitialized: true,//强制保存未初始化的会话到存储器  
+  secret: settings.cookieSecret,
+  key: settings.db,//cookie name
   cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}, //30 days
   store: new MongoStore({
     db: settings.db,
