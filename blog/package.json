@@ -13,6 +13,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
-    "mongodb": "1.4.15"
+    "mongodb": "1.4.15",
+    "express-session": "1.9.1",
+    "connect-mongo": "0.4.1"
   }
 }

@@ -7,7 +7,11 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+//导入配置文件
 var settings = require('./settings');
+//支持会话信息
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 //生成一个express实例app
 var app = express();
@@ -73,6 +77,18 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+app.use(session({
+  secret: setting.cookieSecret,
+  key: setting.db,//cookie name
+  cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}, //30 days
+  store: new MongoStore({
+    db: settings.db,
+    host: settings.host,
+    port: settings.prot
+  })
+}));
+
 
 //导出app实例供其他模块调用。
 module.exports = app;
