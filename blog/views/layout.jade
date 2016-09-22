@@ -6,7 +6,10 @@ html
   body
     h1 #{title}
     nav
-      span <a href='/', title='主页' >home </a>	
-      span <a href='/login', title='登录' > login </a> 
-      span <a href='/reg', title='注册'> register </a>
+      span 
+        a(href='/', title='主页') home
+      span 
+        a(href='/login', title='登录') login 
+      span 
+        a(href='/reg', title='注册') register
     block content
