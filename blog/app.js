@@ -12,6 +12,8 @@ var settings = require('./settings');
 //支持会话信息
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+//flash 是一个在 session 中用于存储信息的特定区域
+var flash = require('connect-flash');
 
 //生成一个express实例app
 var app = express();
@@ -22,6 +24,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 //设置视图模版引擎为jade
 app.set('view engine', 'jade');
+//信息写入flash，下次显示完毕后即被清除
+app.use(flash());
 
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标

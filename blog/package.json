@@ -15,6 +15,7 @@
     "serve-favicon": "~2.3.0",
     "mongodb": "1.4.15",
     "express-session": "1.9.1",
-    "connect-mongo": "0.4.1"
+    "connect-mongo": "0.4.1",
+    "connect-flash": "0.1.1"
   }
 }
