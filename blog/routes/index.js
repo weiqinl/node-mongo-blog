@@ -1,3 +1,6 @@
+var crypto = require('crypto');// 用它来生成散列值来加密密码
+var User = require('../models/user.js');
+
 var express = require('express');
 var router = express.Router();
 
