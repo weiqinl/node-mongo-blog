@@ -32,7 +32,7 @@ router.post('/reg', function(req, res, next) {
 	var password_re = req.body['password-repeat'];
 	//检验用户两次输入的密码是否一致
 	if (password_re != password) {
-		req.flash('error', '两次输入的密码不一致！');
+		// req.flash('error', '两次输入的密码不一致！');
 		return res.redirect('/reg');//重定向功能。返回注册页
 	}
 	//生成密码的md5值
@@ -41,16 +41,17 @@ router.post('/reg', function(req, res, next) {
 	var newUser = new User({
 		name: name,
 		password: newPassword,
-		email: req.body.email
+		email: req.body.email,
+		time: new Date()
 	});
 	//检查用户名是否已经存在
 	User.get(newUser.name, function(err, user) {
 		if(err) {
-			req.flash('error', err);
+			// req.flash('error', err);
 			return res.redirect('/');
 		}
 		if (user) {
-			req.flash('error', '用户名已经存在!');
+			// req.flash('error', '用户名已经存在!');
 			return res.redirect('/reg');//返回注册页面;
 		}
 		//如果不存在则新增用户
@@ -60,8 +61,8 @@ router.post('/reg', function(req, res, next) {
 				return res.redirect('/reg');//注册失败返回注册页面
 			}
 			// 我们把用户信息存储在了 session 里，以后就可以通过 req.session.user 读取用户信息
-			req.session.user = newUser;//用户信息存入session
-			req.flash('success', '注册成功!');
+			// req.session.user = newUser;//用户信息存入session
+			// req.flash('success', '注册成功!');
 			res.redirect('/'); //注册成功后返回主页
 		});
 	});		

@@ -25,8 +25,8 @@ app.set('views', path.join(__dirname, 'views'));
 //设置视图模版引擎为jade
 app.set('view engine', 'jade');
 //信息写入flash，下次显示完毕后即被清除
-// app.use(flash());
-app.use(express.session());
+app.use(flash());
+// app.use(express.session());
 
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标
