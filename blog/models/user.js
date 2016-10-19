@@ -1,5 +1,6 @@
 var mongodb = require('./db');
 
+//定义一个用户实体模型
 function User(user) {
 	this.name = user.name;
 	this.password = user.password;
@@ -23,7 +24,7 @@ User.prototype.save = function(callback) {
 		if (err) {
 			return callback(err); //错误，返回err信息
 		}
-		//读取 users 集合
+		//读取 users 集合，在数据库中，显示users集合
 		db.collection('users', function(err, collection) {
 			if (err) {
 				mongodb.close();

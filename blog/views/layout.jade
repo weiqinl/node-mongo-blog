@@ -8,8 +8,19 @@ html
     nav
       span 
         a(href='/', title='主页') home
-      span 
-        a(href='/login', title='登录') login 
-      span 
-        a(href='/reg', title='注册') register
+      if user 
+        span
+          a(href='/post', title='发表') post
+        span
+          a(href='/logout', title ='登出') logout
+      else
+        span 
+          a(href='/login', title='登录') login 
+        span 
+          a(href='/reg', title='注册') register
+    article
+      if success
+        div #{success}
+      if error
+        div #{error}
     block content
