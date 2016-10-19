@@ -6,7 +6,12 @@ var User = require('../models/user.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '这是主页' });
+  res.render('index', { 
+  	title: '这是主页',
+  	user: 'req.session.user',
+  	success: "req.flash('success').toString()",
+  	error: "req.flash('error').toString()"
+  });
 });
 
 /* GET login page. */
@@ -32,9 +37,12 @@ router.post('/reg', function(req, res, next) {
 	var password_re = req.body['password-repeat'];
 	//检验用户两次输入的密码是否一致
 	if (password_re != password) {
-		req.session = "sdd";
-		req.flash('error', '两次输入的密码不一致！');
-		console.log('两次输入的密码不一致！')
+		req.session.flash = {
+			type: 'error',
+			intro: 'Data',
+			message: '两次输入的密码不一致！',
+		};
+		console.log('两次输入的密码不一致！');
 		return res.redirect('/reg');//重定向功能。返回注册页
 	}
 	//生成密码的md5值
@@ -64,6 +72,7 @@ router.post('/reg', function(req, res, next) {
 			}
 			// 我们把用户信息存储在了 session 里，以后就可以通过 req.session.user 读取用户信息
 			// req.session.user = newUser;//用户信息存入session
+			// req.cookies.user = newUser;
 			// req.flash('success', '注册成功!');
 			console.log("注册成功");
 			res.redirect('/'); //注册成功后返回主页

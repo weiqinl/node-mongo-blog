@@ -18,9 +18,14 @@ html
           a(href='/login', title='登录') login 
         span 
           a(href='/reg', title='注册') register
+    if flash
+      div #{flash.message}
+
     article
       if success
         div #{success}
       if error
         div #{error}
+
+
     block content

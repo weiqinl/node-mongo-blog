@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var credentials = require('./credentials.js');
+
 //导入配置文件
 var settings = require('./settings');
 //支持会话信息
@@ -26,7 +28,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 //信息写入flash，下次显示完毕后即被清除
 app.use(flash());
-// app.use(express.session());
 
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标
@@ -37,10 +38,19 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 //加载解析urlencoded请求体中的中间件
 app.use(bodyParser.urlencoded({ extended: false }));
-//加载解析cookie的中间件
-app.use(cookieParser());
+//加载解析cookie的中间件,并添加私钥[必须添加(Secret string must be provided.)]
+app.use(cookieParser(credentials.cookieSecret));
+//消息会话
+app.use(session());
 // 设置public文件夹为存放静态文件的目录.
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+  //如果有即显消息，把它传到上下文中，然后清除它
+  res.locals.flash = req.session.flash;
+  delete req.session.flash;
+  next();
+});
 
 //路由控制器
 app.use('/', routes);
