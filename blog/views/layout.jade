@@ -6,6 +6,9 @@ html
   body
     h1 #{title}
     nav
+      if user
+        div 欢迎您 #{user.name}
+      else 
       span 
         a(href='/', title='主页') home
       if user 
@@ -18,14 +21,9 @@ html
           a(href='/login', title='登录') login 
         span 
           a(href='/reg', title='注册') register
-    if flash
-      div #{flash.message}
-
     article
-      if success
-        div #{success}
-      if error
-        div #{error}
+      if flash
+        div #{flash.message}  
 
 
     block content

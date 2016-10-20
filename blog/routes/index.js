@@ -8,9 +8,9 @@ var User = require('../models/user.js');
 router.get('/', function(req, res, next) {
   res.render('index', { 
   	title: '这是主页',
-  	user: 'req.session.user',
-  	success: "req.flash('success').toString()",
-  	error: "req.flash('error').toString()"
+  	user: req.session.user,
+  	success: req.flash('success').toString(),
+  	error: req.flash('error').toString()
   });
 });
 
@@ -26,7 +26,11 @@ router.post('/login', function(req, res, next) {
 
 /* GET 注册页面 */
 router.get('/reg', function(req, res, next) {
-	res.render('reg', { title: '注册'});
+	res.render('reg', { title: '注册',
+		user: req.session.user,
+		success: req.flash('success').toString(),
+		error: req.flash('error').toString()
+	});
 });
 
 /* POST 注册页面 */
@@ -38,11 +42,10 @@ router.post('/reg', function(req, res, next) {
 	//检验用户两次输入的密码是否一致
 	if (password_re != password) {
 		req.session.flash = {
-			type: 'error',
-			intro: 'Data',
-			message: '两次输入的密码不一致！',
+			type: 'error',//错误类型
+			intro: 'input error', //简介
+			message: '两次输入的密码不一致！123',
 		};
-		console.log('两次输入的密码不一致！');
 		return res.redirect('/reg');//重定向功能。返回注册页
 	}
 	//生成密码的md5值
@@ -57,24 +60,39 @@ router.post('/reg', function(req, res, next) {
 	//检查用户名是否已经存在
 	User.get(newUser.name, function(err, user) {
 		if(err) {
-			// req.flash('error', err);
+			req.session.flash = {
+				type: 'error',//错误类型
+				intro: 'err', //简介
+				message: '检查用户名是否已经存在失败',
+			};
 			return res.redirect('/');
 		}
 		if (user) {
-			// req.flash('error', '用户名已经存在!');
+			req.session.flash = {
+				type: 'error',//错误类型
+				intro: 'err repeat username', //简介
+				message: '用户名已经存在',
+			};
 			return res.redirect('/reg');//返回注册页面;
 		}
 		//如果不存在则新增用户
 		newUser.save(function(err, user) {
 			if (err) {
-				// req.flash('error', err);
+				req.session.flash = {
+					type: 'error',//错误类型
+					intro: 'err', //简介
+					message: '注册失败',
+				};
 				return res.redirect('/reg');//注册失败返回注册页面
 			}
 			// 我们把用户信息存储在了 session 里，以后就可以通过 req.session.user 读取用户信息
-			// req.session.user = newUser;//用户信息存入session
+			req.session.user = newUser;//用户信息存入session
 			// req.cookies.user = newUser;
-			// req.flash('success', '注册成功!');
-			console.log("注册成功");
+			req.session.flash = {
+				type: 'success',//错误类型
+				intro: 'register success', //简介
+				message: '注册成功!',
+			};
 			res.redirect('/'); //注册成功后返回主页
 		});
 	});		
