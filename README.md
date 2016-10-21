@@ -1,7 +1,6 @@
 # node-mongo-blog
 使用express  (Express 基于Node.js 平台,快速、开放、极简的 web 开发框架),mongodb开发的博客
 
-
 ## 初始化项目
 `npm install -g express-generator` 初始化一个express项目  
 
@@ -16,3 +15,13 @@ $ npm install -g supervisor
 
 本案例，启动的项目是bin/www
 $ supervisor bin/www
+
+
+## 项目工程结构介绍
+app.js：启动文件，或者说入口文件
+package.json：存储着工程的信息及模块依赖，当在 dependencies 中添加依赖的模块时，运行 npm install，npm 会检查当前目录下的 package.json，并自动安装所有指定的模块
+node_modules：存放 package.json 中安装的模块，当你在 package.json 添加依赖的模块并安装后，存放在这个文件夹下
+public：存放 image、css、js 等文件
+routes：存放路由文件
+views：存放视图文件或者说模版文件
+bin：存放可执行文件

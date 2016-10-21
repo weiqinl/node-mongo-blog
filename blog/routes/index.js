@@ -16,12 +16,41 @@ router.get('/', function(req, res, next) {
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-	res.render('login', { title: '登录'});
+	res.render('login', { title: '登录',
+		user: req.session.user,
+		success:  req.flash('success').toString(),
+		error: req.flash('error').toString()
+		});
 });
 
 /* POST 登录 login */
 router.post('/login', function(req, res, next) {
-	res.render('index', { title: '主页' });
+	//生成密码的md5值
+	var md5 = crypto.createHash('md5');
+	var password = md5.update(req.body.password).digest('hex');
+
+	//检查用户是否存在
+	User.get(req.body.name, function(err, user) {
+		if (!user) {
+			req.session.flash = {
+				message: '用户不存在!'
+			};
+			return res.redirect('/login');//用户不存在则跳转到登录页面
+		}		
+		//检查密码是否一致
+		if (user.password != password) {
+			req.session.flash = {
+				type: 'error',//错误类型
+				intro: 'input error', //简介
+				message: '输入的密码错误！123',
+			};
+			return res.redirect('/login');//密码错误则跳转到登录页
+		}
+		//用户名和密码都匹配后，将信息存入 session
+		req.session.user = user;
+		req.session.flash = {message: '登录成功!'};
+		res.redirect('/');//登录成功后跳转到主页
+	}); 
 });
 
 /* GET 注册页面 */
@@ -110,7 +139,11 @@ router.post('/post', function(req, res, next) {
 
 /* GET 登出 */
 router.get('/logout', function(req, res, next) {
-	res.render('index', { title: '主页' });
+	req.session.user = null;
+	req.session.flash = {
+		message: "登出成功!",
+	};
+	res.render('index', {title: '主页'});
 });
 
 /* post 登出 */
