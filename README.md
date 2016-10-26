@@ -25,3 +25,9 @@ public：存放 image、css、js 等文件
 routes：存放路由文件
 views：存放视图文件或者说模版文件
 bin：存放可执行文件
+
+
+## 参考案例：
+1：http://nodejs.cn/doc/node/
+2：http://www.expressjs.com.cn/
+3：https://github.com/nswbmw/N-blog.git
