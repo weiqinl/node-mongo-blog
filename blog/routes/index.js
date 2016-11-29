@@ -4,6 +4,8 @@ var router = express.Router();
 var crypto = require('crypto');// 用它来生成散列值来加密密码
 var User = require('../models/user.js');
 
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { 
@@ -16,12 +18,37 @@ router.get('/', function(req, res, next) {
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-	res.render('login', { title: '登录',
+	res.render('login', {
+		title: '登录',
 		user: req.session.user,
 		success:  req.flash('success').toString(),
 		error: req.flash('error').toString()
 		});
 });
+router.post('/login', checkNotLogin);
+function checkLogin(req, res, next) {
+	if(!req.session.user) {
+		req.session.flash = {
+			type: 'error',//错误类型
+			intro: 'login error', //简介
+			message: '未登录!',
+		};
+		res.redirect('/login');
+	}
+	next();
+}
+
+function checkNotLogin(req, res, next) {
+	if(req.session.user) {
+		req.session.flash = {
+			type: 'error',//错误类型
+			intro: 'login error', //简介
+			message: '已经登录！',
+		};
+		res.redirect('back');//返回之前的页面
+	}
+	next();
+}
 
 /* POST 登录 login */
 router.post('/login', function(req, res, next) {
@@ -53,23 +80,30 @@ router.post('/login', function(req, res, next) {
 	}); 
 });
 
+
+/**
+ * 先检查是否登录,还没有验证功能
+ */
+router.get('/reg', checkNotLogin);
+
 /* GET 注册页面 */
 router.get('/reg', function(req, res, next) {
-	res.render('reg', { title: '注册',
+	res.render('reg',{ 
+		title: '注册',
 		user: req.session.user,
 		success: req.flash('success').toString(),
 		error: req.flash('error').toString()
 	});
 });
 
+router.post('/reg', checkNotLogin);
 /* POST 注册页面 */
-router.post('/reg', function(req, res, next) {
-	
+router.post('/reg', function(req, res, next) {	
 	var name = req.body.name;
 	var password = req.body.password;
 	var password_re = req.body['password-repeat'];
 	//检验用户两次输入的密码是否一致
-	if (password_re != password) {
+	if (password_re != password) {		
 		req.session.flash = {
 			type: 'error',//错误类型
 			intro: 'input error', //简介
@@ -116,7 +150,7 @@ router.post('/reg', function(req, res, next) {
 			}
 			// 我们把用户信息存储在了 session 里，以后就可以通过 req.session.user 读取用户信息
 			req.session.user = newUser;//用户信息存入session
-			// req.cookies.user = newUser;
+		
 			req.session.flash = {
 				type: 'success',//错误类型
 				intro: 'register success', //简介
@@ -139,16 +173,21 @@ router.post('/post', function(req, res, next) {
 
 /* GET 登出 */
 router.get('/logout', function(req, res, next) {
+	
 	req.session.user = null;
 	req.session.flash = {
-		message: "登出成功!",
+		type: 'success',//错误类型
+		intro: 'register success', //简介
+		message: "登出成功!"
 	};
-	res.render('index', {title: '主页'});
+	res.redirect('/'); //注册成功后返回主页
+	// res.render('index', {title: '主页'});
 });
 
 /* post 登出 */
 router.post('/logout', function(req, res, next) {
-	res.render('index', { title: '主页' });
+	
+	res.render('index', {title: '主页???'});
 });
 
 module.exports = router;
