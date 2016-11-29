@@ -1,6 +1,14 @@
 extends layout
 
 block content   
-  p 这是主页2233
-  span 
-  a(href='www.baidu.com') 如何设置外链，目前设置错误
+	p 这是主页2233
+	span 
+	a(href='www.baidu.com') 如何设置外链，目前设置错误
+	div
+	each post, index in posts
+		p #{post.title}
+		|作者:
+		a(href='#') #{post.name}
+		|日期:
+		#{post.time.minute}
+		p #{post.post}		

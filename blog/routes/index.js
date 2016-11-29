@@ -3,17 +3,24 @@ var router = express.Router();
 
 var crypto = require('crypto');// 用它来生成散列值来加密密码
 var User = require('../models/user.js');
+var Post = require('../models/post.js');
 
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { 
-  	title: '这是主页',
-  	user: req.session.user,
-  	success: req.flash('success').toString(),
-  	error: req.flash('error').toString()
-  });
+router.get('/', function(req, res) {
+	Post.get(null, function (err, posts) {
+		if (err) {
+			posts = [];
+		}
+		res.render('index', {
+			title: '这是主页',
+		  	user: req.session.user,
+		  	posts: posts,
+		  	success: req.flash('success').toString(),
+		  	error: req.flash('error').toString()
+		  });
+	});
 });
 
 /* GET login page. */
@@ -162,13 +169,47 @@ router.post('/reg', function(req, res, next) {
 });
 
 /* GET 发表页面,获取所有的文章列表 */
+router.get('/postlist', function(req, res) {
+	var currentUser = req.session.user;
+	Post.get(currentUser.name, function(err, posts) {
+		if (err) {
+			posts = [];
+		}	
+		res.render('postlist', { 
+			title: '发表的文章',
+			user: req.session.user,
+			posts: posts,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString()
+		});
+	})
+});
+
+/* GET 发表页面,获取所有的文章列表 */
 router.get('/post', function(req, res, next) {
-	res.render('postlist', { title: '发表的文章' });
+	res.render('post', { title: '写文章' });
 });
 
 /* POST 发表页面 */
-router.post('/post', function(req, res, next) {
-	res.render('post', { title: '发表' });
+router.post('/post', function(req, res) {
+	var currentUser = req.session.user;
+	var post = new Post(currentUser.name, req.body.title, req.body.post);
+	post.save(function (err) {
+		if (err) {
+			req.session.flash = {
+				type: 'error',
+				intro: 'post arts error',
+				message: '发表文章失败!'
+			};
+			res.redirect('/post');//发表失败，停留在发表页面
+		}
+		req.session.flash = {
+				type: 'success',
+				intro: 'post arts success',
+				message: '成功发表文章!'
+		};
+		res.redirect('/');	
+	});
 });
 
 /* GET 登出 */

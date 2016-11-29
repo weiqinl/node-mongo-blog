@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= title
+    meta(charset='UTF-8')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     h1 #{title}
@@ -14,6 +15,8 @@ html
       if user 
         span
           a(href='/post', title='发表') post
+        span
+          a(href='/postlist', title='文章列表') postlist
         span
           a(href='/logout', title ='登出') logout
       else

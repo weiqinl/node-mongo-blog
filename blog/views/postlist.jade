@@ -1,5 +1,13 @@
 extends layout
 
 block content
-	h1=title
-	p Welcome to #{title}
+	#{title}
+	#{title} welcome to #{title}
+	div
+	each post, index in posts
+		p #{post.title}
+		|作者:
+		a(href='#') #{post.name}
+		|日期:
+		#{post.time.minute}
+		p #{post.post}	

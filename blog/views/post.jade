@@ -1,5 +1,11 @@
 extends layout
 
 block content
-	h1=title
-	p Welcome to #{title}
+	form(method='post')
+		|标题：  
+		input(type='text', name='title')
+		br
+		p
+		|正文：
+		textarea(name='post', rows='20' clos='100')
+		input(type='submit', value='发表')
