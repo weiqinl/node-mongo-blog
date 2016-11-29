@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-//此js文件，专门放了cookie的私钥
+//此js文件，专门放了cookie的私钥cookieSecret
 var credentials = require('./credentials.js');
-
+ 
 //导入配置文件
 var settings = require('./settings');
 //支持会话信息

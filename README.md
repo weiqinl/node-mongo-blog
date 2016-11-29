@@ -1,4 +1,15 @@
-# node-mongo-blog
+## 下载本案例，并运行顺序
+1：在根目录（/blog/）创建文件credentials.js，在里面输入
+	module.exports = {
+		cookieSecret: '你的密钥信息'
+	}
+2: 执行依赖包安装命令：npm install
+3：执行启动程序命令：supervisor bin/www
+4: 在浏览器中运行：http://localhost:3000/
+
+
+
+# node-mongo-blog 简介
 使用express  (Express 基于Node.js 平台,快速、开放、极简的 web 开发框架),mongodb开发的博客
 
 ## 初始化项目
@@ -15,6 +26,7 @@ $ npm install -g supervisor
 
 本案例，启动的项目是bin/www
 $ supervisor bin/www
+
 
 
 ## 项目工程结构介绍
