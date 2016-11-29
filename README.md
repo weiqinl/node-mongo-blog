@@ -1,11 +1,13 @@
-## 下载本案例，并运行顺序
+## 下载本案例，并运行顺序  
 1：在根目录（/blog/）创建文件credentials.js，在里面输入
+
 	module.exports = {
 		cookieSecret: '你的密钥信息'
-	}
-2: 执行依赖包安装命令：npm install
-3：执行启动程序命令：supervisor bin/www
-4: 在浏览器中运行：http://localhost:3000/
+	}  
+
+2: 执行依赖包安装命令：npm install  
+3：执行启动程序命令：supervisor bin/www  
+4: 在浏览器中运行：http://localhost:3000/  
 
 
 
@@ -30,16 +32,16 @@ $ supervisor bin/www
 
 
 ## 项目工程结构介绍
-app.js：启动文件，或者说入口文件
-package.json：存储着工程的信息及模块依赖，当在 dependencies 中添加依赖的模块时，运行 npm install，npm 会检查当前目录下的 package.json，并自动安装所有指定的模块
-node_modules：存放 package.json 中安装的模块，当你在 package.json 添加依赖的模块并安装后，存放在这个文件夹下
-public：存放 image、css、js 等文件
-routes：存放路由文件
-views：存放视图文件或者说模版文件
-bin：存放可执行文件
+app.js：启动文件，或者说入口文件  
+package.json：存储着工程的信息及模块依赖，当在 dependencies 中添加依赖的模块时，运行 npm install，npm   会检查当前目录下的 package.json，并自动安装所有指定的模块  
+node_modules：存放 package.json 中安装的模块，当你在 package.json 添加依赖的模块并安装后，存放在这个文件夹下  
+public：存放 image、css、js 等文件  
+routes：存放路由文件  
+views：存放视图文件或者说模版文件  
+bin：存放可执行文件  
 
 
-## 参考案例：
-1：http://nodejs.cn/doc/node/
-2：http://www.expressjs.com.cn/
-3：https://github.com/nswbmw/N-blog.git
+## 参考案例：  
+1：http://nodejs.cn/doc/node/   
+2：http://www.expressjs.com.cn/  
+3：https://github.com/nswbmw/N-blog.git  
