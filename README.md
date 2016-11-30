@@ -1,5 +1,5 @@
 ## 下载本案例，并运行顺序  
-0：下载地址：https://github.com/weiqinl/node-mongo-blog
+0：下载地址：https://github.com/weiqinl/node-mongo-blog  
 1：在根目录（/blog/）创建文件credentials.js，在里面输入
 
 	module.exports = {
@@ -48,5 +48,5 @@ bin：存放可执行文件
 3：https://github.com/nswbmw/N-blog.git  
 
 ## 本案例地址
-https://github.com/weiqinl/node-mongo-blog
+https://github.com/weiqinl/node-mongo-blog  
 git@github.com:weiqinl/node-mongo-blog.git
