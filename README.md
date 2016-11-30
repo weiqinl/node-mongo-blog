@@ -49,3 +49,4 @@ bin：存放可执行文件
 
 ## 本案例地址
 https://github.com/weiqinl/node-mongo-blog
+git@github.com:weiqinl/node-mongo-blog.git
