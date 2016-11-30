@@ -1,8 +1,7 @@
 extends layout
 
 block content
-	#{title}
-	#{title} welcome to #{title}
+	p #{user.name}
 	div
 	each post, index in posts
 		p #{post.title}

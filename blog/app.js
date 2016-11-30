@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+//日志模块
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -27,14 +28,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 //设置视图模版引擎为jade
 app.set('view engine', 'jade');
+
+
 //信息写入flash，下次显示完毕后即被清除
 app.use(flash());
-
+//加载日志中间件morgan
+app.use(logger('dev'));
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-//加载日志中间件
-app.use(logger('dev'));
 //加载解析json的中间件
 app.use(bodyParser.json());
 //加载解析urlencoded请求体中的中间件

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var debug = require('debug')('router');
 
 var crypto = require('crypto');// 用它来生成散列值来加密密码
 var User = require('../models/user.js');
@@ -9,6 +10,7 @@ var Post = require('../models/post.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
+	debug('Hello, %s', 'world! DEBUG ');//测试DEBUG模块
 	Post.get(null, function (err, posts) {
 		if (err) {
 			posts = [];
@@ -168,6 +170,8 @@ router.post('/reg', function(req, res, next) {
 	});		
 });
 
+
+
 /* GET 发表页面,获取所有的文章列表 */
 router.get('/postlist', function(req, res) {
 	var currentUser = req.session.user;
@@ -186,13 +190,21 @@ router.get('/postlist', function(req, res) {
 });
 
 /* GET 发表页面,获取所有的文章列表 */
-router.get('/post', function(req, res, next) {
-	res.render('post', { title: '写文章' });
+router.get('/post', function(req, res) {
+	var currentUser = req.session.user;
+	debug('currentUser: ' + currentUser.name);
+	res.render('post', { 
+		title: '写文章',
+		user: req.session.user,
+		success: req.flash('success').toString(),
+		error: req.flash('error').toString() 
+	});
 });
 
 /* POST 发表页面 */
 router.post('/post', function(req, res) {
 	var currentUser = req.session.user;
+	debug(currentUser.name);
 	var post = new Post(currentUser.name, req.body.title, req.body.post);
 	post.save(function (err) {
 		if (err) {
@@ -221,14 +233,8 @@ router.get('/logout', function(req, res, next) {
 		intro: 'register success', //简介
 		message: "登出成功!"
 	};
-	res.redirect('/'); //注册成功后返回主页
-	// res.render('index', {title: '主页'});
+	res.redirect('/'); //登出后返回主页
 });
 
-/* post 登出 */
-router.post('/logout', function(req, res, next) {
-	
-	res.render('index', {title: '主页???'});
-});
 
 module.exports = router;
