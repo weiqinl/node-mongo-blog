@@ -30,6 +30,8 @@ User.prototype.save = function(callback) {
 				mongodb.close();
 				return callback(err); //错误， 返回err信息
 			}
+			//为name属性添加索引
+			collection.ensureIndex('name', {unique: true});
 			//将用户数据插入users集合
 			collection.insert(user, {
 				safe: true
