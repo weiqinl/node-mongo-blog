@@ -22,6 +22,7 @@ var flash = require('connect-flash');
 //生成一个express实例app
 var app = express();
 
+// app.set()是Express的参数设置工具，接受一个键(key)和一个值(value)
 //设置views文件夹为存放视图文件的目录，即存放模版文件的地方
 //__dirname为全局变量，存储当前正在执行的脚本所在的目录。
 // view engine setup
@@ -30,6 +31,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 
+//app.use()启用中间件
 //信息写入flash，下次显示完毕后即被清除
 app.use(flash());
 //加载日志中间件morgan
@@ -105,7 +107,7 @@ app.use(session({
   store: new MongoStore({
     db: settings.db,
     host: settings.host,
-    port: settings.prot
+    port: settings.port
   })
 }));
 

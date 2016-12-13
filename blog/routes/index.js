@@ -1,12 +1,30 @@
 var express = require('express');
 var router = express.Router();
 var debug = require('debug')('router');
+var util = require('util');
+
 
 var crypto = require('crypto');// 用它来生成散列值来加密密码
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
 
+// router.helpers({
+// 	inspect:function (obj) {
+// 		return util.inspect(obj, true);
+// 	}
+// });
 
+// router.dynamicHelpers({
+// 	headers: function (req, res) {
+// 		return req.headers;
+// 	}
+// });
+
+router.get('/helper', function (req, res) {
+	res.render('helper', {
+		title: 'Helpers'
+	});
+});
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -16,7 +34,7 @@ router.get('/', function(req, res) {
 			posts = [];
 		}
 		res.render('index', {
-			title: '这是主页',
+				title: '这是主页',
 		  	user: req.session.user,
 		  	posts: posts,
 		  	success: req.flash('success').toString(),
@@ -58,6 +76,8 @@ function checkNotLogin(req, res, next) {
 	}
 	next();
 }
+
+
 
 /* POST 登录 login */
 router.post('/login', function(req, res, next) {
@@ -172,8 +192,8 @@ router.post('/reg', function(req, res, next) {
 
 
 
-/* GET 发表页面,获取所有的文章列表 */
-router.get('/postlist', function(req, res) {
+/* GET 发表页面,获取某用户发表的所有文章列表 */
+router.get('/post/:user', function(req, res) {
 	var currentUser = req.session.user;
 	Post.get(currentUser.name, function(err, posts) {
 		if (err) {

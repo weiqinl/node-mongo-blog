@@ -22,6 +22,7 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
+// app.set是Express的参数设置工具，接受一个键(key)和一个值(value)
 app.set('port', port);
 
 /**
