@@ -1,10 +1,16 @@
 var mongodb = require('./db');
 
 //定义一个实体模型
-function Post(name, title, post) {
+function Post(name, title, post, time) {
 	this.name = name;
 	this.title = title;
 	this.post = post;
+
+	// if (time) {
+	// 	this.time = time;
+	// } else {
+	// 	this.time = new Date();
+	// }
 }
 
 //导出实例，用于require()加载
@@ -15,9 +21,9 @@ Post.prototype.save = function(callback) {
 	var date = new Date();
 	//存储各种时间格式，方便以后扩展
 	var time = {
-		date: date,
-		year: date.getFullYear(),
-		 month : date.getFullYear() + "-" + (date.getMonth() + 1),
+			date: date,
+		 	year: date.getFullYear(),
+		  month : date.getFullYear() + "-" + (date.getMonth() + 1),
       day : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
       minute : date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + 
       date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) 
@@ -40,12 +46,14 @@ Post.prototype.save = function(callback) {
 				mongodb.close();
 				return callback(err);
 			}
+			// 为name属性添加索引
+			collection.ensureIndex('name');
 			//将文档插入posts集合
 			collection.insert(post, {
 				safe: true
 			}, function (err, post) {			
 				mongodb.close();
-				callback(null);				
+				callback(err, post);				
 			});
 		});
 	});
@@ -64,6 +72,7 @@ Post.get = function (name, callback) {
 				mongodb.close();
 				return callback(err);
 			}
+			// 查找name属性为name的文档，如果name是null则匹配全部
 			var query = {};
 			if (name) {
 				query.name = name;
@@ -77,6 +86,13 @@ Post.get = function (name, callback) {
 				if (err) {
 					callback(err, null);//失败！返回null
 				}
+				// 封装posts为Post对象
+				// var posts = [];
+				// docs.forEach(function(doc, index) {
+				// 	var post = new Post(doc.name, doc.post, doc.time, doc.title);
+				// 	posts.push(post);
+				// });
+				// callback(null, posts);
 				callback(null, docs);//成功！以数组形式返回查询的结果
 			});
 		});

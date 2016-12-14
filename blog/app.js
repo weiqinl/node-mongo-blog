@@ -1,6 +1,34 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var fs = require('fs');
+var FileStreamRotator = require('File-Stream-Rotator');
+
+
+var logDir = __dirname + '/logs/';
+
+// ensure log directory exists
+fs.existsSync(logDir) || fs.mkdirSync(logDir);
+
+//create a rotating write stream
+var accessLogStream = FileStreamRotator.getStream({
+  filename: logDir + 'access-%DATE%.log',
+  frequency: 'daily',  //有三种频率 daily/m/h
+  verbose: false  //默认true
+})
+
+var errorLogStream = FileStreamRotator.getStream({
+  filenma: logDir + 'error-%DATE%.log',
+  frequency: 'daily',
+  verbose: false  //默认true
+})
+
+
+var accessLogfile = fs.createWriteStream(logDir + 'access.log', {flags: 'a'});
+// var errorLogfile = fs.createWriteStream(logDir + 'error.log', {flags: 'a'});
+
+
+
 //日志模块
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -34,8 +62,10 @@ app.set('view engine', 'jade');
 //app.use()启用中间件
 //信息写入flash，下次显示完毕后即被清除
 app.use(flash());
-//加载日志中间件morgan
-app.use(logger('dev'));
+//加载日志中间件morgan,有5种格式： combined/common/dev/short/tiny
+app.use(logger('dev', {stream: accessLogfile}));
+app.use(logger('combined', {stream: accessLogStream}));
+app.use(logger('tiny', {stream: errorLogStream}));
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

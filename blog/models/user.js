@@ -67,7 +67,7 @@ User.get = function(name, callback) {
 					if (err) {
 						return callback(err); //失败， 返回err信息
 					}
-					callback(null, user); //成功，返回咨询的用户信息				
+					callback(null, user); //成功，返回查询的用户信息				
 			});
 		});
 	});

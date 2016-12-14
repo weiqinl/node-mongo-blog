@@ -65,6 +65,7 @@ function checkLogin(req, res, next) {
 	next();
 }
 
+//路由中间件
 function checkNotLogin(req, res, next) {
 	if(req.session.user) {
 		req.session.flash = {
@@ -212,7 +213,7 @@ router.get('/post/:user', function(req, res) {
 /* GET 发表页面,获取所有的文章列表 */
 router.get('/post', function(req, res) {
 	var currentUser = req.session.user;
-	debug('currentUser: ' + currentUser.name);
+	// debug('currentUser: ' + currentUser.name);
 	res.render('post', { 
 		title: '写文章',
 		user: req.session.user,
