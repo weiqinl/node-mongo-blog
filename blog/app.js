@@ -11,21 +11,33 @@ var logDir = __dirname + '/logs/';
 fs.existsSync(logDir) || fs.mkdirSync(logDir);
 
 //create a rotating write stream
-var accessLogStream = FileStreamRotator.getStream({
-  filename: logDir + 'access-%DATE%.log',
-  frequency: 'daily',  //有三种频率 daily/m/h
-  verbose: false  //默认true
+var accessLogStreamD = FileStreamRotator.getStream({
+  filename: logDir + 'access-D-%DATE%.log',
+  frequency: 'daily',  //有四种频率 daily/m/h/test
+  date_format: 'YYYYMMDD',
+  verbose: true  //默认true
 })
 
+var accessLogStreamH = FileStreamRotator.getStream({
+  filename: logDir + 'access-H.log',
+  frequency: 'h',  //有四种频率 daily/m/h/test
+  verbose: false  //默认true
+})
+var accessLogStreamM = FileStreamRotator.getStream({
+  filename: logDir + 'access-M-%DATE%.log',
+  frequency: 'm',  //有四种频率 daily/m/h/test
+  verbose: false  //默认true
+})
 var errorLogStream = FileStreamRotator.getStream({
   filenma: logDir + 'error-%DATE%.log',
   frequency: 'daily',
+  date_format: 'YYYYMMDDHH',
   verbose: false  //默认true
 })
 
 
 var accessLogfile = fs.createWriteStream(logDir + 'access.log', {flags: 'a'});
-// var errorLogfile = fs.createWriteStream(logDir + 'error.log', {flags: 'a'});
+var errorLogfile = fs.createWriteStream(logDir + 'error.log', {flags: 'a'});
 
 
 
@@ -64,8 +76,14 @@ app.set('view engine', 'jade');
 app.use(flash());
 //加载日志中间件morgan,有5种格式： combined/common/dev/short/tiny
 app.use(logger('dev', {stream: accessLogfile}));
-app.use(logger('combined', {stream: accessLogStream}));
+app.use(logger('combined', {stream: accessLogStreamD}));
 app.use(logger('tiny', {stream: errorLogStream}));
+app.use(logger('dev', {stream: errorLogfile}));
+
+app.use(logger('short', {stream: accessLogStreamH}));
+app.use(logger('common', {stream: accessLogStreamM}));
+
+
 // uncomment after placing your favicon in /public
 // 设置/public/favicon.ico为favicon图标
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -96,6 +114,10 @@ app.use('/users', users);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+
+  var meta = '[' + new Date() + ']' + req.url + '\n';
+  errorLogfile.write(meta + err.stack + '\n');
+
   next(err);
 });
 
