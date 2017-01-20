@@ -40,8 +40,14 @@ var server = http.createServer(app);
 server.listen(port);
 //如果有异常，触发   HTTP异常事件处理函数
 server.on('error', onError);
-//触发事件监听函数
-server.on('listening', onListening);
+
+//这个语句功能是：判断当前模块是不是由其他模块调用的。
+//如果不是，说明它是直接启动的，此时启动监听服务器，
+//如果是，则不自动启动服务器
+if (!module.parent) {
+  //触发事件监听函数
+  server.on('listening', onListening);  
+}
 
 /**
  * Normalize a port into a number, string, or false.

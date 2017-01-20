@@ -14,18 +14,20 @@ fs.existsSync(logDir) || fs.mkdirSync(logDir);
 var accessLogStreamD = FileStreamRotator.getStream({
   filename: logDir + 'access-D-%DATE%.log',
   frequency: 'daily',  //有四种频率 daily/m/h/test
-  date_format: 'YYYYMMDD',
+  date_format: 'YYYYMMDDHH',
   verbose: true  //默认true
 })
 
 var accessLogStreamH = FileStreamRotator.getStream({
-  filename: logDir + 'access-H.log',
+  filename: logDir + 'access-H-%DATE%.log',
   frequency: 'h',  //有四种频率 daily/m/h/test
+  date_format: 'YYYYMMDDHH',
   verbose: false  //默认true
 })
 var accessLogStreamM = FileStreamRotator.getStream({
   filename: logDir + 'access-M-%DATE%.log',
   frequency: 'm',  //有四种频率 daily/m/h/test
+  date_format: 'YYYYMMDDHHmm',
   verbose: false  //默认true
 })
 var errorLogStream = FileStreamRotator.getStream({
