@@ -1,5 +1,5 @@
 ﻿## 忽略models文件夹
-node_modules/
+*/node_modules/
 ## 忽略 加密文件
 credentials.js
 ## 删除项目文件
