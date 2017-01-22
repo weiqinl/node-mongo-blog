@@ -16,5 +16,5 @@ COPY . /usr/src/app
 EXPOSE 80
 
 # ENTRYPOINT指令，让Node.js程序作为该Docker镜像的主运行入口，并将其运行起来。
-ENTRYPOINT ["supervisor", "./bin/www"]
+ENTRYPOINT ["node", "bin/www"]
 
