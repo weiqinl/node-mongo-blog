@@ -12,3 +12,9 @@ COPY package.json /usr/src/app/
 RUN npm install 
 COPY . /usr/src/app
 
+# 端口暴露
+EXPOSE 80
+
+# ENTRYPOINT指令，让Node.js程序作为该Docker镜像的主运行入口，并将其运行起来。
+ENTRYPOINT ["node", "bin/www"]
+
