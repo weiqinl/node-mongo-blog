@@ -1,0 +1,9 @@
+::1 - GET / HTTP/1.1 200 483 - 3127.355 ms
+::1 - GET /stylesheets/style.css HTTP/1.1 200 859 - 80.602 ms
+::1 - GET /favicon.ico HTTP/1.1 200 1531 - 1.970 ms
+::1 - GET / HTTP/1.1 200 507 - 1172.140 ms
+::1 - GET /stylesheets/style.css HTTP/1.1 304 - - 3.613 ms
+::1 - GET /login HTTP/1.1 200 552 - 63.471 ms
+::1 - GET /stylesheets/style.css HTTP/1.1 304 - - 1.604 ms
+::1 - GET /reg HTTP/1.1 200 688 - 38.658 ms
+::1 - GET /stylesheets/style.css HTTP/1.1 304 - - 3.176 ms

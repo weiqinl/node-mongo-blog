@@ -1,0 +1,9 @@
+::1 - - [22/Jan/2017:06:10:32 +0000] "GET / HTTP/1.1" 200 483
+::1 - - [22/Jan/2017:06:10:32 +0000] "GET /stylesheets/style.css HTTP/1.1" 200 859
+::1 - - [22/Jan/2017:06:10:32 +0000] "GET /favicon.ico HTTP/1.1" 200 1531
+::1 - - [22/Jan/2017:06:10:35 +0000] "GET / HTTP/1.1" 200 507
+::1 - - [22/Jan/2017:06:10:35 +0000] "GET /stylesheets/style.css HTTP/1.1" 304 -
+::1 - - [22/Jan/2017:06:10:36 +0000] "GET /login HTTP/1.1" 200 552
+::1 - - [22/Jan/2017:06:10:36 +0000] "GET /stylesheets/style.css HTTP/1.1" 304 -
+::1 - - [22/Jan/2017:06:10:37 +0000] "GET /reg HTTP/1.1" 200 688
+::1 - - [22/Jan/2017:06:10:37 +0000] "GET /stylesheets/style.css HTTP/1.1" 304 -
