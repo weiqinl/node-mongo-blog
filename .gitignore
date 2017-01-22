@@ -1,4 +1,18 @@
+<<<<<<< HEAD
 */node_modules/
 credentials.js
 */logs/
 .project
+=======
+﻿## 忽略 .idea配置文件
+.idea/
+## 忽略models文件夹
+node_modules/
+## 忽略 加密文件
+##credentials.js
+## 删除项目文件
+.project
+## 删除运行过程中的日志文件 .log
+logs/
+*.log
+>>>>>>> develop
