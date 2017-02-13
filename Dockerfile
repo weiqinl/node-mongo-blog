@@ -1,10 +1,12 @@
-# Using a OS
-# FROM ubuntu
-
-# MAINTAINER weiqinl <https://github.com/weiqinl>
 # 从DockerHub拉取一个Node.js的官方Docker镜像,作为我们环境的基础镜像
-FROM node:4.2.2
+FROM node
+
+#介绍个人联系信息
 MAINTAINER weiqinl <https://github.com/weiqinl>
+
+#文档的最后更新时间，修改可以清除缓存
+ENV REFRESHED_AT 2017-02-10
+
 #创建一个位于弄起内部的代码运行文件夹，并将代码复制进去，且通过npm来安装依赖包
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
