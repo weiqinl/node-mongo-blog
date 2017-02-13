@@ -15,7 +15,7 @@
     "express-session": "^1.9.1",
     "file-stream-rotator": "0.0.7",
     "jade": "^1.11.0",
-    "mongodb": "2.0.25",
+    "mongodb": "2.2.19",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
   }
