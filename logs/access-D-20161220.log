@@ -1,3 +1,0 @@
-::1 - - [20/Dec/2016:00:57:53 +0000] "GET / HTTP/1.1" 200 1781 "-" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"
-::1 - - [20/Dec/2016:00:57:53 +0000] "GET /stylesheets/style.css HTTP/1.1" 200 859 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"
-::1 - - [20/Dec/2016:00:57:53 +0000] "GET /favicon.ico HTTP/1.1" 200 1531 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36"

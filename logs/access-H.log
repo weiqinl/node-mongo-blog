@@ -1,3 +1,0 @@
-::1 - GET / HTTP/1.1 200 1781 - 1544.261 ms
-::1 - GET /stylesheets/style.css HTTP/1.1 200 859 - 132.945 ms
-::1 - GET /favicon.ico HTTP/1.1 200 1531 - 28.931 ms
