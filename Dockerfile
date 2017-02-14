@@ -22,7 +22,7 @@ ADD nginx/nginx.conf /etc/nginx/
 
 
 # 端口暴露
-EXPOSE 80
+EXPOSE 3000
 
 # ENTRYPOINT指令，让Node.js程序作为该Docker镜像的主运行入口，并将其运行起来。
 ENTRYPOINT ["supervisor", "bin/www"]
