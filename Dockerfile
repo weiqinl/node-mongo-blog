@@ -5,18 +5,25 @@ FROM node
 MAINTAINER weiqinl <https://github.com/weiqinl>
 
 #文档的最后更新时间，修改可以清除缓存
-ENV REFRESHED_AT 2017-02-10
+ENV REFRESHED_AT 2017-02-14
 
-#创建一个位于弄起内部的代码运行文件夹，并将代码复制进去，且通过npm来安装依赖包
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
+#创建一个文件夹，并将代码复制进去，且通过npm来安装依赖包
+RUN mkdir -p /var/www/html/website
+WORKDIR /var/www/html/website
+
+COPY blog/package.json /var/www/html/website
 RUN npm install --registry=https://registry.npm.taobao.org 
-COPY . /usr/src/app
+
+
+COPY . /var/www/html/website
+
+ADD nginx/global.conf /etc/nginx/conf.d/
+ADD nginx/nginx.conf /etc/nginx/
+
 
 # 端口暴露
 EXPOSE 80
 
 # ENTRYPOINT指令，让Node.js程序作为该Docker镜像的主运行入口，并将其运行起来。
-ENTRYPOINT ["node", "bin/www"]
+ENTRYPOINT ["supervisor", "bin/www"]
 
