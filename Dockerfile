@@ -9,13 +9,13 @@ ENV REFRESHED_AT 2017-02-14
 
 #创建一个文件夹，并将代码复制进去，且通过npm来安装依赖包
 RUN mkdir -p /var/www/html/website
-WORKDIR /var/www/html/website
-
-COPY blog/package.json /var/www/html/website
-RUN npm install --registry=https://registry.npm.taobao.org 
-
 
 COPY . /var/www/html/website
+
+WORKDIR /var/www/html/website/blog
+
+RUN npm install --registry=https://registry.npm.taobao.org 
+
 
 ADD nginx/global.conf /etc/nginx/conf.d/
 ADD nginx/nginx.conf /etc/nginx/
