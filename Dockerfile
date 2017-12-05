@@ -2,7 +2,7 @@
 FROM node
 
 #介绍个人联系信息
-MAINTAINER weiqinl <https://github.com/weiqinl>
+LABEL maintainer='weiqinl <https://github.com/weiqinl>'
 
 #文档的最后更新时间，修改可以清除缓存
 ENV REFRESHED_AT 2017-02-14
