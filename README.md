@@ -8,7 +8,7 @@
 
 2: 执行依赖包安装命令：npm install  
 3：执行启动程序命令：supervisor bin/www  
-4: 在浏览器中运行：http://localhost:3000/  
+4: 确保本机安装了MongoDB。在浏览器中运行：http://localhost:3000/  
 
 
 
