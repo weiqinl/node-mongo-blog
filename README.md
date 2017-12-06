@@ -41,6 +41,7 @@ routes：存放路由文件
 views：存放视图文件或者说模版文件  
 bin：存放可执行文件  
 
+使用MongoDB官方驱动器 node-mongodb-native
 
 ## 参考案例：  
 1：http://nodejs.cn/doc/node/   
